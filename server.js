@@ -71,19 +71,27 @@ application.get('/Contact/:id', (request, response) => {
         console.error(error.message);     
     }
 });
-
-application.get('/Contract', (request, response) => {
-    
+//Requête qui permet d'obtenir les contrats
+application.get('api/GetContract', (request, response) => {
     try {
-        client.query("SELECT * FROM salesforce.contract").then((contracts)=> {
-            console.log(contracts.rows);
-            response.json(contracts.rows);
+        client.query("SELECT * FROM salesforce.contract").then((data)=> {
+            var contractsContent = data.rows;
+            var tableContract = '<table class="Contract" border=1>'+
+            '<thead><tr><th>Contract Number</th><th>Start Date</th><th Contract Term</th></tr>'+
+            '</thead>'+
+            '<tbody>';
+            contractsContent.forEach(contract => {
+                var dateStart = contract.startdate;
+                var DateConverted = dateStart.toLocaleDateString('en-US');
+               tableContract = tableContract+'<tr><td>'+contract.contractnumber+'</td><td>'+contract.status+'</td><td>'+DateConverted+'</td><td>'+contract.contractterm+'</td></tr>';              
+            });
+            tableContract = tableContract+'</tbody></table>';
+            response.send({html: tableContract});
         });
-    }
-    catch(error) {
-        console.error(error.message);     
-    }
-});
+    } catch (error) {
+        console.error(error.message);
+    }});
+
 //Requête pour obtenir 1 contact grâce a son contact
 //Son ID est dans l'uri et on l'a place dans la query a la première position $
 application.get('/Contract/:id', (request, response) => {
@@ -101,7 +109,7 @@ application.get('/Contract/:id', (request, response) => {
 });
 
 //Cette méthode va crée un contact dans SF 
-application.post('/Contact/', (request, response) => {
+application.post('/api/Contacts', (request, response) => {
     
 try {
     //ces variables correspondent a ce qui va être envoyé dans le corps de la requête
@@ -131,7 +139,22 @@ try {
              catch(error) {
                  console.error(error.message);
         }});
-        
+        //Création d'une requête qui permet de retrouver le contact qui se connecte
+application.post('/api/getContact',(request, response)=> { 
+    var emailContact = request.body.email;
+    var passwordContact = request.body.password;
+    try {
+        client.query('select * from salesforce.contact where email = $1 and password__c = $2', [emailContact, passwordContact])
+        .then((contact)=>{
+            var data = contact.rows[0];
+            response.json(data);
+        });
+    } catch(error) {
+        console.log(error);
+
+    }
+});
+    
         //Création d'un contrat 
 application.post('/Contract/', (request, response) => {
 

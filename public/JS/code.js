@@ -58,7 +58,7 @@ var contactIdFromServe;
 //Fonction ajax qui permet de trouver les contacts existant
 function searchExistingContact() {
     $.ajax({
-        url: '/Contact',
+        url: '/api/getContact',
         method: "POST",
         contentType: "application/json",
             data: JSON.stringify({
@@ -77,6 +77,8 @@ function searchExistingContact() {
             $('#passwordIdServer').text(contact.password__c);
             loginSuccess();
             alert('connexion réussi');
+            //On appelle la méthode après que la connexion
+            searchContract();
             console.log(modifiedLastName);
             console.log(modifiedFirstName);
             console.log(modifiedPassword);
@@ -92,4 +94,18 @@ function loginSuccess() {
     login.style.display = 'none';
     registerLogin.style.display = 'none';
     tableaux.style.display = 'block';
+}
+
+function searchContract() {
+    $.ajax({
+        url:'/Contracts',
+        method:'GET',
+        contentType:'application/json',
+        success: function(response) {
+            $('#contractId').html(response.html);
+        },
+        error: function() {
+            alert('error please check log.');
+        }
+    })
 }
