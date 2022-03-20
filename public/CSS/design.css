@@ -1,0 +1,50 @@
+:root{
+    background-image: linear-gradient(to right, #89c1f5, turquoise, #5bcf66);
+}
+#Placement{
+    margin: auto;
+    width: 80%;
+    text-align: center;
+    position: relative;
+    margin-bottom: 8%;
+}
+.classLogin {
+    margin-bottom: 2%;
+    margin-left: 5px;
+    background-color:snow;
+    width: 50%;
+    margin:auto;
+}
+input, .homeBtn {
+    display:block;
+    text-align:center;
+    margin: auto;
+}
+input {
+    margin-bottom: 1%;
+    min-height: 20px;
+    min-width: 100px;
+}
+.registerC {
+    background-color:snow;
+    width: 50%;
+    margin:auto;
+    margin-top: 3%;
+}
+
+.TableauContact, .TableauContrat,.TableauProduit {
+    background-color:snow;
+    margin:auto;
+    text-align:center;
+    width:50%;
+    padding-bottom: 2%;
+}
+
+.Contact,.Contract,.Product {
+    margin:auto;
+    text-align:center;
+}
+#creationContact, #contactSave {
+    margin-top : 2%;
+    margin-bottom : 2%;
+}

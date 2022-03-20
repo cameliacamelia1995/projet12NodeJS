@@ -115,13 +115,13 @@ try {
         //Si le contact est défini (il a tous les champs) mais qu'il n'est pas trouvé dans SF on le crée
         //Sinon on retourne son sfid
         if(contact !== undefined ) {
-            if(ctc.rowCount === 0) {
+            if(contact.rowCount === 0) {
                 contactCreation = client.query("insert into salesforce.contact(email, firstname, lastname, password) value($1, $2, $3, $4) returning id", [email, firstName, lastName, password])
                 .then((contact) => {response.json(contact.rows[0].id);});
             }
             else {
                 contactCreation = client.query("SELECT sfid, id FROM salesforce.contact WHERE email = $1",[email])
-                .then((contact) => {response.json(contac.rows[0].sfid);});
+                .then((contact) => {response.json(contact.rows[0].sfid);});
             }}
             //Si le contact est défini on obtient son mail en retour 
             else{

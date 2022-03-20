@@ -1,47 +1,23 @@
 //Création des éléménts dont j'ai besoin 
 //On cache les tableaux
-const tableaux = document.getElementById('SuperTableau').style.display = "none";
+const tableaux = document.getElementById('SuperTableau');
+tableaux.style.display = 'none';
 //LOGIN
-const login = document.createElement('section');
-const formLogin = document.createElement('form');
-const labelLogin = document.createElement('label');
-const inputEmail = document.createElement('input');
-const labelPassword = document.createElement('label');
-const inputPassword = document.createElement('input');
-const btnConnect = document.createElement('button');
+const login = document.querySelector('.classLogin');
+const formLogin = document.querySelector('.formloginClass');
+const inputEmail = document.getElementById('emailId');
+const inputPassword = document.getElementById('passwordId');
+const btnConnect = document.getElementById('btnHome');
 
-const placement = document.getElementById('#Placement')
-placement.appendChild(login);
-login.appendChild(formLogin);
-formLogin.appendChild(labelLogin);
-formLogin.appendChild(inputEmail);
-formLogin.appendChild(labelPassword);
-formLogin.appendChild(inputPassword);
-formLogin.appendChild(btnConnect);
-
+const placement = document.getElementById('Placement');
 // REGISTER
-const registerLogin = document.createElement('section');
-const formLoginRegister = document.createElement('form');
-const labelEmailContact = document.createElement('label');
-const inputEmailContact = document.createElement('input');
-const labelFirstNameContact = document.createElement('label');
-const inputFirstName = document.createElement('input');
-const labelLastName = document.createElement('label');
-const inputLastName = document.createElement('input');
-const labelMdp = document.createElement('label');
-const inputMdp = document.createElement('input');
-const btnRegister = document.createElement('button');
-
-login.after(registerLogin);
-registerLogin.appendChild(formLoginRegister);
-formLoginRegister.appendChild(labelEmailContact);
-formLoginRegister.appendChild(inputEmailContact);
-formLoginRegister.appendChild(labelFirstNameContact);
-formLoginRegister.appendChild(inputFirstName);
-formLoginRegister.appendChild(labelLastName);
-formLoginRegister.appendChild(inputLastName);
-formLoginRegister.appendChild(labelMdp);
-formLoginRegister.appendChild(inputMdp);
+const registerLogin = document.querySelector('.registerC');
+const formLoginRegister = document.querySelector('.formRegisterClass');
+const inputEmailContact = document.getElementById('registerMailId');
+const inputFirstName = document.getElementById('registerFirstNameId');
+const inputLastName = document.getElementById('registerLastNameId');
+const inputMdp = document.getElementById('registerPasswordId"');
+const btnRegister = document.getElementById('btnRegisterId');
 
 //Bouton Deconnecter 
 //Tableau de données du contact
@@ -59,15 +35,8 @@ const divContactInformation = document.createElement('div');
 const divContracts = document.createElement('div');
 //Tableau données des produits
 const divProducts = document.createElement('div');
+
 //init html
-inputLogin.innerHTML = "Email";
-inputPassword.innerHTML = "Password";
-inputFirstName.innerHTML = "First Name";
-inputLastName.innerHTML = "Last Name";
-inputEmail.innerHTML = "Email"
-inputMdp.innerHTML = "Choose a password";
-btnConnect.innerHTML = "Login";
-btnRegister.innerHTML = "Register";
 btnLogOut.innerHTML = "Log Out";
 divData.innerHTML = "Your Contact Information";
 btnEditContact.innerHTML = "Edit Contact";
@@ -75,12 +44,52 @@ saveContact.innerHTML = "Save Contact";
 divContracts.innerHTML = "Contracts";
 divProducts.innerHTML = "Products";
 
+formLogin.addEventListener(('submit'), (e) => {
+    e.preventDefault(); 
+    searchExistingContact();
+})
 
+var modifiedLastName;
+var modifiedFirstName;
+var modifiedEmail;
+var modifiedPassword;
+var contactIdFromServe;
 
-
-
-
-
-
-
-
+//Fonction ajax qui permet de trouver les contacts existant
+function searchExistingContact() {
+    $.ajax({
+        url: '/Contact',
+        method: "POST",
+        contentType: "application/json",
+            data: JSON.stringify({
+                password: $('#passwordId').val(),
+                email: $('#emailId').val()
+            }),
+            //Obtenir les données de SF et l'ai placer dans le tableau
+        success: function (contact) {
+            contactIdFromServe = contact.sfid;
+            modifiedFirstName = contact.firstname;
+            modifiedLastName = contact.lastname;
+            modifiedEmail = contact.email;
+            modifiedPassword = contact.password__c;
+            $('#nameIdServer').text(contact.name);
+            $('#emailIdServer').text(contact.email);
+            $('#passwordIdServer').text(contact.password__c);
+            loginSuccess();
+            alert('connexion réussi');
+            console.log(modifiedLastName);
+            console.log(modifiedFirstName);
+            console.log(modifiedPassword);
+            console.log(modifiedEmail);
+        },
+        error:function(error){
+            console.log(error);
+            console.log('impossible to connect');
+        }
+    });
+}
+function loginSuccess() {
+    login.style.display = 'none';
+    registerLogin.style.display = 'none';
+    tableaux.style.display = 'block';
+}

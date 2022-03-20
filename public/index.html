@@ -8,36 +8,55 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <img src="LOGO/logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
    
 </head>
 <body>
     <section class = "hautDePage" id= "Placement">
+    <img src="LOGO/logo.png">
     <h1 class="pageTitle">Legarant Mobile Application</h1>
     <p class="subtitle">Welcome to the mobile Legarant/AXG Application.</p>   
 </section>
+<section class="classLogin" id="loginIdContact">
+      <form class="formloginClass">
+        <button class="homebtn" id='btnHome' type="submit">Login</button>
+        <input type="text" class="inputMailClass" id="emailId" maxlength="30" placeholder="Email" required> 
+        <input type="password" class="inputPasswordClass" id="passwordId" maxlength="30" placeholder="Password" required></form>
+
+        <div class="registerC">
+          <form class="formRegisterClass"> 
+          <button class="homebtn" id='btnRegisterId' type='submit'>Register</button>
+          <input type="text" class="inputRegisterFirstName" id="registerFirstNameId" maxlength="30" placeholder='First name' required>
+          <input type="text" class="inputRegisterLastName" id="registerLastNameId" maxlength="30" placeholder='Last name' required>
+          <input type="text" class="inputRegisterMail" id="registerMailId" maxlength="30" placeholder='Email' required>
+          <input type="text" class="inputRegisterPassword" id="registerPasswordId" maxlength="30" placeholder='Choose a password' required></form>
+          </div>
+    </section>
 <section class = "tableaux" id = "SuperTableau">
     <div class = "TableauContact">
         <h2 class = "TitreContact">
           Bienvenue Test
         </h2>
+        <button class="createContact" id='creationContact' type='submit'>Edit Information</button>
         <table class = "Contact" id="ContactId" border = 1>
             <thead><tr><th>Name</th><th>Email</th><th>Password</th></tr></thead>
-            <tbody><tr><td>TestName</td><td>TestEmail</td><td>TestPassword</td></tr></tbody>
+            <tr><td><span id="nameIdServer">name</span></td><td><span id="emailIdServer">email</span></td><td><span id="passwordIdServer">password</span></span></td></tr>
         </table>
+        <button class="SaveContact" id='contactSave' type='submit'>Save Information</button>
     </div>
-    <div class = "TableauContrat">
+
+    </div>
+    <div class='TableauContrat'>
         <h2 class = "TitreContract">Liste des contrats</h2>
-        <table class = "Contract" id="ContractId" border = 1>
-            <thead><tr><th>Number Of Contract</th><th>Start Date</th><th>End Term</th></tr></thead>
-            <tbody><tr><td>TestNumber</td><td>TestContract</td><td>TestEndTerm</td></tr></tbody>
-        </table>
-    </div>
+          <div id='ContactId' class='Contract'></div>
+      </div>
 
     <div class = "TableauProduit">
         <h2 class = "TitreDuProduit">Liste des produits</h2>
         <table class = "Product" id="ProductId" border = 1>
-            <thead><tr><th>Name Of Product</th><th>Family</th><th></th>Active</tr></thead>
+            <thead><tr><th>Name Of Product</th><th>Family</th><th>Active</th></tr></thead>
             <tbody><tr><td>TestNameProduct</td><td>TestFamily</td><td>TestActive</td></tr></tbody>
         </table>
 
